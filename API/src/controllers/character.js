@@ -90,4 +90,31 @@ const editCharacter = async (req, res) => {
   }
 };
 
-export { getAllCharacter, getCharacterById, addCharacter, editCharacter };
+const deleteCharacterById = async (req, res) => {
+  try {
+    const query = `
+    DELETE FROM \`character\`
+    WHERE id = ?
+    `;
+
+    const response = await Query.runWithParams(query, req.params);
+
+    res.json({
+      msg: "Le charactere à été supprimé avec succès !",
+      response,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Erreur de serveur",
+      error,
+    });
+  }
+};
+
+export {
+  getAllCharacter,
+  getCharacterById,
+  addCharacter,
+  editCharacter,
+  deleteCharacterById,
+};

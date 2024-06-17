@@ -1,11 +1,14 @@
-function isAdmin(req, res, next) {
-  if (!req.session.user || !req.session.user.isAdmin) {
-    res.status(403).json({ message: "Vous n'avez pas l'autorisation" });
+function adminRequired(req, res, next) {
+  if (!req.session.user || req.session.user.function !== 2) {
+    console.log(req.session.user.function);
+    res.status(403).json({
+      msg: "Vous n'avez pas l'autorisation",
+    });
     return;
   }
-  if (req.session.user.isAdmin) {
+  if (req.session.user.function === 2) {
     next();
   }
 }
 
-export default isAdmin;
+export { adminRequired };

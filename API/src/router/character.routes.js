@@ -5,13 +5,17 @@ import {
   getCharacterById,
   addCharacter,
   editCharacter,
+  deleteCharacterById,
 } from "../controllers/character.js";
+
+import { adminRequired } from "../middlewares/adminRequired.js";
 
 const router = Router();
 
 router.get("/", getAllCharacter);
 router.get("/:id", getCharacterById);
-router.post("/", addCharacter);
-router.patch("/", editCharacter);
+router.post("/", adminRequired, addCharacter);
+router.patch("/", adminRequired, editCharacter);
+router.delete("/:id", adminRequired, deleteCharacterById);
 
 export default router;
