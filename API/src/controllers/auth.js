@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import Query from "../model/Query.js";
+import Query from "../models/Query.js";
 
 const checkAuth = (req, res) => {
   if (req.session.user) {
@@ -76,7 +76,7 @@ const login = async (req, res) => {
     const infoUser = {
       email: user.email,
       nickname: user.nickname,
-      password: user.password,
+      isAdmin: user.function_id,
     };
 
     req.session.user = infoUser;

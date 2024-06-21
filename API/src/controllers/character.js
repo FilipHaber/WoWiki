@@ -1,17 +1,18 @@
-import Query from "../model/Query.js";
+import Characters from "../models/Character.js";
 
-const getAllCharacter = async (req, res) => {
+const getAllCharacters = async (req, res) => {
   try {
-    const query = `
-        SELECT id, character_name, image, alt
-        FROM \`character\`
-        `;
+    const responses = await Characters.getAll();
 
-    const response = await Query.run(query);
+    if (!responses.length) {
+      return res.status(404).json({
+        msg: "Aucun personnage présent dans la bdd !",
+      });
+    }
 
     res.json({
-      msg: "Je suis sur la route API pour récupérer tous les characters !",
-      response,
+      msg: "les characters ont bien été récupérer!",
+      responses,
     });
   } catch (error) {
     res.status(500).json({
@@ -24,20 +25,18 @@ const getAllCharacter = async (req, res) => {
 const getCharacterById = async (req, res) => {
   try {
     const { id } = req.params;
-    const query = `
-    SELECT id, character_name, image, alt, description
-    FROM \`character\`
-    WHERE id = ?
-    `;
+    const response = await Characters.getById(id);
 
-    const [response] = await Query.runWithParams(query, id);
-
-    if (!response)
+    if (!response.length) {
       return res.status(404).json({
         msg: "Le personnage demandé n'a pas été trouvé",
       });
+    }
 
-    res.json(response);
+    res.json({
+      msg: "Le personnage à bien été récupérer !",
+      response,
+    });
   } catch (error) {
     res.status(500).json({
       msg: "Erreur de serveur",
@@ -48,12 +47,8 @@ const getCharacterById = async (req, res) => {
 
 const addCharacter = async (req, res) => {
   try {
-    const query = `
-    INSERT INTO \`character\` (character_name, image, alt, description)
-    VALUES (?, ?, ?, ?)
-    `;
-
-    const response = await Query.runWithParams(query, req.body);
+    const data = req.body;
+    const response = await Characters.add(data);
 
     res.json({
       msg: "Les données ont bien été insérées dans character !",
@@ -70,13 +65,9 @@ const addCharacter = async (req, res) => {
 
 const editCharacter = async (req, res) => {
   try {
-    const query = `
-    UPDATE \`character\`
-    SET character_name = ?
-    WHERE id = ?
-    `;
-
-    const response = await Query.runWithParams(query, req.body);
+    const { id } = req.params;
+    const data = { ...req.body, id };
+    const response = await Characters.editById(data);
 
     res.json({
       msg: "Les données du character ont bien été modifié !",
@@ -92,12 +83,8 @@ const editCharacter = async (req, res) => {
 
 const deleteCharacterById = async (req, res) => {
   try {
-    const query = `
-    DELETE FROM \`character\`
-    WHERE id = ?
-    `;
-
-    const response = await Query.runWithParams(query, req.params);
+    const { id } = req.params;
+    const response = await Characters.deleteById(id);
 
     res.json({
       msg: "Le charactere à été supprimé avec succès !",
@@ -112,7 +99,7 @@ const deleteCharacterById = async (req, res) => {
 };
 
 export {
-  getAllCharacter,
+  getAllCharacters,
   getCharacterById,
   addCharacter,
   editCharacter,
