@@ -1,17 +1,17 @@
-import Characters from "../models/Character.js";
+import Function from "../models/Function.js";
 
-const getAllCharacters = async (req, res) => {
+const getAllFunctions = async (req, res) => {
   try {
-    const response = await Characters.getAll();
+    const response = await Function.getAll();
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Aucun personnage présent dans la bdd !",
+        msg: "Aucune function trouvé dans la bdd !",
       });
     }
 
     res.json({
-      msg: "les personnages ont bien été récupérer!",
+      msg: "Toutes les functions ont bien été récupérer !",
       response,
     });
   } catch (error) {
@@ -22,19 +22,19 @@ const getAllCharacters = async (req, res) => {
   }
 };
 
-const getCharacterById = async (req, res) => {
+const getFunctionById = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Characters.getById(id);
+    const response = await Function.getById(id);
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Le personnage demandé n'existe pas dans la bdd !",
+        msg: "La function demandé n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Le personnage à bien été récupérer !",
+      msg: "La function à bien été récupérer !",
       response,
     });
   } catch (error) {
@@ -45,17 +45,16 @@ const getCharacterById = async (req, res) => {
   }
 };
 
-const addCharacter = async (req, res) => {
+const addFunction = async (req, res) => {
   try {
     const data = req.body;
-    const response = await Characters.add(data);
+    const response = await Function.add(data);
 
     res.json({
-      msg: "Les données ont bien été insérées dans character !",
+      msg: "La function à bien été ajoutée !",
       response,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       msg: "Erreur de serveur",
       error,
@@ -63,20 +62,20 @@ const addCharacter = async (req, res) => {
   }
 };
 
-const editCharacter = async (req, res) => {
+const editFunction = async (req, res) => {
   try {
     const { id } = req.params;
     const data = { ...req.body, id };
-    const response = await Characters.edit(data);
+    const response = await Function.edit(data);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "Le character n'a pas pu être modifié car il n'existe pas dans la bdd !",
+        msg: "La function n'a pas pu être modifiée car elle n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Les données du character ont bien été modifié !",
+      msg: "La function à été modifié avec succès !",
       response,
     });
   } catch (error) {
@@ -87,19 +86,19 @@ const editCharacter = async (req, res) => {
   }
 };
 
-const deleteCharacterById = async (req, res) => {
+const deleteFunction = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Characters.deleteById(id);
+    const response = await Function.deleteById(id);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "Le character n'a pas pu être supprimé car il n'existe pas dans la bdd !",
+        msg: "La function n'a pas pu être supprimé car elle n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Le charactere à été supprimé avec succès !",
+      msg: "La function à été supprimer avec succès !",
       response,
     });
   } catch (error) {
@@ -111,9 +110,9 @@ const deleteCharacterById = async (req, res) => {
 };
 
 export {
-  getAllCharacters,
-  getCharacterById,
-  addCharacter,
-  editCharacter,
-  deleteCharacterById,
+  getAllFunctions,
+  getFunctionById,
+  addFunction,
+  editFunction,
+  deleteFunction,
 };

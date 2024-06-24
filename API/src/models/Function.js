@@ -1,10 +1,10 @@
 import Query from "./Query.js";
 
-class Roles {
+class Function {
   static async getAll() {
     const query = `
       SELECT *
-      FROM role
+      FROM \`function\`
       `;
 
     const response = await Query.run(query);
@@ -13,8 +13,8 @@ class Roles {
 
   static async getById(id) {
     const query = `
-      SELECT id, role_name, image, alt, description
-      FROM role
+      SELECT *
+      FROM \`function\`
       WHERE id = ?
       `;
 
@@ -24,8 +24,8 @@ class Roles {
 
   static async add(data) {
     const query = `
-      INSERT INTO role (role_name, image, alt, description)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO \`function\` (function_name)
+      VALUES (?)
       `;
 
     const response = await Query.runWithParams(query, data);
@@ -34,8 +34,8 @@ class Roles {
 
   static async edit(data) {
     const query = `
-      UPDATE role
-      SET role_name = ?, image = ?, alt = ?, description = ?
+      UPDATE \`function\`
+      SET function_name = ?
       WHERE id = ?
       `;
 
@@ -43,15 +43,15 @@ class Roles {
     return response;
   }
 
-  static async deleteById(id) {
+  static async deleteById(data) {
     const query = `
-            DELETE FROM role
-            WHERE id = ?
-            `;
+      DELETE FROM \`function\`
+      WHERE id = ?
+      `;
 
-    const response = await Query.runWithParams(query, id);
+    const response = await Query.runWithParams(query, data);
     return response;
   }
 }
 
-export default Roles;
+export default Function;

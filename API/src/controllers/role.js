@@ -29,7 +29,7 @@ const getRoleById = async (req, res) => {
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Le personnage demandé n'a pas été trouvé",
+        msg: "Le role demandé n'existe pas dans la bdd",
       });
     }
 
@@ -66,7 +66,13 @@ const editRole = async (req, res) => {
   try {
     const { id } = req.params;
     const data = { ...req.body, id };
-    const response = await Roles.editById(data);
+    const response = await Roles.edit(data);
+
+    if (response.affectedRows === 0) {
+      return res.status(404).json({
+        msg: "le role n'a pas pu être modifiée car il n'existe pas dans la bdd",
+      });
+    }
 
     res.json({
       msg: "Le role à été modifié avec succès !",
@@ -84,6 +90,12 @@ const deleteRole = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await Roles.deleteById(id);
+
+    if (response.affectedRows === 0) {
+      return res.status(404).json({
+        msg: "le role n'a pas pu être supprimée car il n'existe pas dans la bdd",
+      });
+    }
 
     res.json({
       msg: "Le role à été supprimer avec succès",

@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import Query from "../models/Query.js";
+import Auth from "../models/Auth.js";
 
 const checkAuth = (req, res) => {
   if (req.session.user) {
@@ -16,26 +17,16 @@ const checkAuth = (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const query1 = `
-            SELECT *
-            FROM user
-            WHERE email = ?
-            `;
-
-    const existingUser = await Query.runWithParams(query1, {
-      email: req.body.email,
-    });
+    const email = req.body.email;
+    const nickname = req.body.nickname;
+    const data = { email, nickname };
+    const existingUser = await Auth.registerCompare(data);
 
     if (existingUser.length) {
       return res.status(409).json({
-        msg: "Cet utilisateur existe déjà",
+        msg: "L'email ou le surnom sont déjà utilisé",
       });
     }
-
-    const query2 = `
-            INSERT INTO user (nickname, email, password)
-            VALUES (?, ?, ?)
-            `;
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -45,7 +36,7 @@ const register = async (req, res) => {
       password: hashedPassword,
     };
 
-    await Query.runWithParams(query2, newUser);
+    await Auth.register(newUser);
 
     res.status(201).json({
       msg: "Inscription réussie",
@@ -53,23 +44,25 @@ const register = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       msg: "Erreur de serveur",
-      error: error.message,
+      error: error,
     });
   }
 };
 
 const login = async (req, res) => {
   try {
-    const query = `
-            SELECT *
-            FROM user
-            WHERE email = ?
-            `;
-    const [user] = await Query.runWithParams(query, { email: req.body.email });
+    const email = req.body.email;
+    const user = await Auth.login(email);
 
     if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
       return res.status(401).json({
         msg: "Information(s) incorrecte(s)",
+      });
+    }
+
+    if (user.status === 1) {
+      return res.status(401).json({
+        msg: "Votre compte a été suspendu !",
       });
     }
 
@@ -88,7 +81,7 @@ const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       msg: "Erreur de serveur",
-      error: error.message,
+      error: error,
     });
   }
 };

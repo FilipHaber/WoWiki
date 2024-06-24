@@ -1,10 +1,10 @@
 import Query from "./Query.js";
 
-class Characters {
+class CharacterSkills {
   static async getAll() {
     const query = `
             SELECT *
-            FROM \`character\`
+            FROM character_skills
             `;
 
     const response = await Query.run(query);
@@ -13,10 +13,10 @@ class Characters {
 
   static async getById(id) {
     const query = `
-    SELECT id, character_name, image, alt, description
-    FROM \`character\`
-    WHERE id = ?
-    `;
+            SELECT *
+            FROM character_skills
+            WHERE id = ?
+            `;
 
     const response = await Query.runWithParams(query, [id]);
     return response;
@@ -24,9 +24,9 @@ class Characters {
 
   static async add(data) {
     const query = `
-    INSERT INTO \`character\` (character_name, image, alt, description)
-    VALUES (?, ?, ?, ?)
-    `;
+            INSERT INTO character_skills (character_id, role_id, specialization_id)
+            VALUES (?, ?, ?)
+            `;
 
     const response = await Query.runWithParams(query, data);
     return response;
@@ -34,10 +34,10 @@ class Characters {
 
   static async edit(data) {
     const query = `
-    UPDATE \`character\`
-    SET character_name = ?, image = ?, alt = ?, description = ?
-    WHERE id = ?
-    `;
+            UPDATE character_skills
+            SET character_id = ?, role_id = ?, specialization_id = ?
+            WHERE id = ?
+            `;
 
     const response = await Query.runWithParams(query, data);
     return response;
@@ -45,13 +45,13 @@ class Characters {
 
   static async deleteById(id) {
     const query = `
-    DELETE FROM \`character\`
-    WHERE id = ?
-    `;
+      DELETE FROM character_skills
+      WHERE id = ?
+      `;
 
-    const response = await Query.runWithParams(query, id);
+    const response = await Query.runWithParams(query, [id]);
     return response;
   }
 }
 
-export default Characters;
+export default CharacterSkills;
