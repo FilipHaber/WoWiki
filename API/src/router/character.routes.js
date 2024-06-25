@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { adminRequired } from "../middlewares/adminRequired.js";
 import {
   getAllCharacters,
   getCharacterById,
@@ -7,8 +8,6 @@ import {
   editCharacter,
   deleteCharacterById,
 } from "../controllers/character.js";
-
-import { adminRequired } from "../middlewares/adminRequired.js";
 
 const router = Router();
 

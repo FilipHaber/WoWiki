@@ -67,6 +67,7 @@ const login = async (req, res) => {
     }
 
     const infoUser = {
+      id: user.id,
       email: user.email,
       nickname: user.nickname,
       isAdmin: user.function_id,

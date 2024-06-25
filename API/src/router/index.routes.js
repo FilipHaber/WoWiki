@@ -7,6 +7,7 @@ import user_router from "./user.routes.js";
 import function_router from "./function.routes.js";
 import specialization_router from "./specialization.routes.js";
 import characterSkills_router from "./characterSkills.routes.js";
+import comment_router from "./comment.routes.js";
 
 const router = Router();
 const BASE_API = "/api";
@@ -22,5 +23,6 @@ router.use(`${BASE_API}/user`, user_router);
 router.use(`${BASE_API}/function`, function_router);
 router.use(`${BASE_API}/specialization`, specialization_router);
 router.use(`${BASE_API}/characterSkills`, characterSkills_router);
+router.use(`${BASE_API}/comment`, comment_router);
 
 export default router;

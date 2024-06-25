@@ -2,23 +2,23 @@ import Query from "./Query.js";
 
 class Auth {
   static async registerCompare(data) {
-    const query1 = `
+    const query = `
       SELECT *
       FROM user
       WHERE email = ? OR nickname = ?
       `;
 
-    const existingUser = await Query.runWithParams(query1, data);
+    const existingUser = await Query.runWithParams(query, data);
     return existingUser;
   }
 
   static async register(newUser) {
-    const query2 = `
+    const query = `
       INSERT INTO user (nickname, email, password)
       VALUES (?, ?, ?)
       `;
 
-    const response = await Query.runWithParams(query2, newUser);
+    const response = await Query.runWithParams(query, newUser);
     return response;
   }
 
