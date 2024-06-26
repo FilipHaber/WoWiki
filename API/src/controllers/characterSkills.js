@@ -1,5 +1,13 @@
 import CharacterSkills from "../models/CharacterSkills.js";
 
+/**
+ * Retrieves all character skills from the database.
+ * Sends a JSON response with the character skills or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllCharacterSkills = async (req, res) => {
   try {
     const response = await CharacterSkills.getAll();
@@ -21,6 +29,14 @@ const getAllCharacterSkills = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves character skills by their ID from the database.
+ * Sends a JSON response with the character skills or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getCharacterSkillsById = async (req, res) => {
   try {
@@ -45,6 +61,14 @@ const getCharacterSkillsById = async (req, res) => {
   }
 };
 
+/**
+ * Adds new character skills to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addCharacterSkills = async (req, res) => {
   try {
     const data = req.body;
@@ -61,6 +85,14 @@ const addCharacterSkills = async (req, res) => {
     });
   }
 };
+
+/**
+ * Edits existing character skills in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const editCharacterSkills = async (req, res) => {
   try {
@@ -85,6 +117,14 @@ const editCharacterSkills = async (req, res) => {
     });
   }
 };
+
+/**
+ * Deletes character skills by their ID from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const deleteCharacterSkills = async (req, res) => {
   try {

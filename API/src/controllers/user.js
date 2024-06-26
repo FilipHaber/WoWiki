@@ -1,5 +1,13 @@
 import Users from "../models/User.js";
 
+/**
+ * Retrieves all users from the database.
+ * Sends a JSON response with the users or an appropriate error message if none found.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllUsers = async (req, res) => {
   try {
     const response = await Users.getAll();
@@ -21,6 +29,14 @@ const getAllUsers = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves a specific user by their ID from the database.
+ * Sends a JSON response with the user data or an appropriate error message if not found.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getUserById = async (req, res) => {
   try {
@@ -44,6 +60,14 @@ const getUserById = async (req, res) => {
   }
 };
 
+/**
+ * Updates an existing user's data in the database.
+ * Sends a JSON response with the updated user data or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const editUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -62,4 +86,34 @@ const editUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, getUserById, editUser };
+/**
+ * Deletes the authenticated user's account from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
+const deleteUserById = async (req, res) => {
+  try {
+    const id = req.session.user.id;
+    const response = await Users.deleteById(id);
+
+    if (!response.affectedRows === 0) {
+      return res.status(404).json({
+        msg: "L'utilisateur n'a pas pu être supprimé car il n'existe pas dans la bdd!",
+      });
+    }
+
+    res.json({
+      msg: "Vous avez supprimé votre compté",
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Erreur de serveur",
+      error,
+    });
+  }
+};
+
+export { getAllUsers, getUserById, editUser, deleteUserById };

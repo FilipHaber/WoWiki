@@ -1,5 +1,13 @@
 import Function from "../models/Function.js";
 
+/**
+ * Retrieves all functions from the database.
+ * Sends a JSON response with the functions or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllFunctions = async (req, res) => {
   try {
     const response = await Function.getAll();
@@ -21,6 +29,14 @@ const getAllFunctions = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves a specific function by its ID from the database.
+ * Sends a JSON response with the function or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getFunctionById = async (req, res) => {
   try {
@@ -45,6 +61,14 @@ const getFunctionById = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new function to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addFunction = async (req, res) => {
   try {
     const data = req.body;
@@ -61,6 +85,14 @@ const addFunction = async (req, res) => {
     });
   }
 };
+
+/**
+ * Edits an existing function in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const editFunction = async (req, res) => {
   try {
@@ -85,6 +117,14 @@ const editFunction = async (req, res) => {
     });
   }
 };
+
+/**
+ * Deletes a specific function by its ID from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const deleteFunction = async (req, res) => {
   try {

@@ -1,5 +1,13 @@
 import Roles from "../models/Role.js";
 
+/**
+ * Retrieves all roles from the database.
+ * Sends a JSON response with the roles or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllRoles = async (req, res) => {
   try {
     const response = await Roles.getAll();
@@ -21,6 +29,14 @@ const getAllRoles = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves a specific role by its ID from the database.
+ * Sends a JSON response with the role or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getRoleById = async (req, res) => {
   try {
@@ -45,6 +61,14 @@ const getRoleById = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new role to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addRole = async (req, res) => {
   try {
     const data = req.body;
@@ -61,6 +85,14 @@ const addRole = async (req, res) => {
     });
   }
 };
+
+/**
+ * Edits an existing role in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const editRole = async (req, res) => {
   try {
@@ -85,6 +117,14 @@ const editRole = async (req, res) => {
     });
   }
 };
+
+/**
+ * Deletes a specific role by its ID from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const deleteRole = async (req, res) => {
   try {

@@ -1,5 +1,13 @@
 import Specialization from "../models/Specialization.js";
 
+/**
+ * Retrieves all specializations from the database.
+ * Sends a JSON response with the specializations or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllSpecializations = async (req, res) => {
   try {
     const response = await Specialization.getAll();
@@ -21,6 +29,14 @@ const getAllSpecializations = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves a specific specialization by its ID from the database.
+ * Sends a JSON response with the specialization or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getSpecializationById = async (req, res) => {
   try {
@@ -45,6 +61,14 @@ const getSpecializationById = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new specialization to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addSpecialization = async (req, res) => {
   try {
     const data = req.body;
@@ -61,6 +85,14 @@ const addSpecialization = async (req, res) => {
     });
   }
 };
+
+/**
+ * Edits an existing specialization in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const editSpecialization = async (req, res) => {
   try {
@@ -85,6 +117,14 @@ const editSpecialization = async (req, res) => {
     });
   }
 };
+
+/**
+ * Deletes a specific specialization by its ID from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const deleteSpecialization = async (req, res) => {
   try {

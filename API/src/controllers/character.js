@@ -1,5 +1,13 @@
 import Characters from "../models/Character.js";
 
+/**
+ * Retrieves all characters from the database.
+ * Sends a JSON response with the characters or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllCharacters = async (req, res) => {
   try {
     const response = await Characters.getAll();
@@ -21,6 +29,14 @@ const getAllCharacters = async (req, res) => {
     });
   }
 };
+
+/**
+ * Retrieves a character by its ID from the database.
+ * Sends a JSON response with the character or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const getCharacterById = async (req, res) => {
   try {
@@ -45,6 +61,14 @@ const getCharacterById = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new character to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addCharacter = async (req, res) => {
   try {
     const data = req.body;
@@ -62,6 +86,14 @@ const addCharacter = async (req, res) => {
     });
   }
 };
+
+/**
+ * Edits an existing character in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const editCharacter = async (req, res) => {
   try {
@@ -86,6 +118,14 @@ const editCharacter = async (req, res) => {
     });
   }
 };
+
+/**
+ * Deletes a character by its ID from the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const deleteCharacterById = async (req, res) => {
   try {

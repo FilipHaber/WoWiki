@@ -1,8 +1,17 @@
 import Comment from "../models/Comment.js";
 
+/**
+ * Retrieves all comments with a status of 0 (not treated).
+ * Sends a JSON response with the comments or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getAllComments = async (req, res) => {
   try {
-    const response = await Comment.getAll();
+    const status = 0;
+    const response = await Comment.getAll(status);
 
     if (!response.length) {
       return res.status(404).json({
@@ -22,10 +31,21 @@ const getAllComments = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves comments by the user ID stored in the session.
+ * Sends a JSON response with the comments or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getCommentsByUserId = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.session.user.id;
+    console.log("req session user id: ", req.session.user.id);
     const status = 0;
+    console.log(id);
+    console.log("status :", status);
     const response = await Comment.getByUserId(id, status);
 
     if (!response.length) {
@@ -46,10 +66,19 @@ const getCommentsByUserId = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves comments by character ID from the database.
+ * Sends a JSON response with the comments or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const getCommentsByCharacterId = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Comment.getByCharacterId(id);
+    const status = 0;
+    const response = await Comment.getByCharacterId(id, status);
 
     if (!response.length) {
       return res.status(404).json({
@@ -69,9 +98,18 @@ const getCommentsByCharacterId = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new comment to the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const addComment = async (req, res) => {
   try {
-    const data = req.body;
+    const userId = req.session.user.id;
+    const data = { ...req.body, userId };
     const response = await Comment.add(data);
 
     res.json({
@@ -86,11 +124,20 @@ const addComment = async (req, res) => {
   }
 };
 
+/**
+ * Edits an existing comment in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
 const editComment = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = { ...req.body, id };
-    const response = await Comment.edit(data);
+    const userId = req.session.user.id;
+    const { content } = req.body;
+    const response = await Comment.edit(content, id, userId);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({

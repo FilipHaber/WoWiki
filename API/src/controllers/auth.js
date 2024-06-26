@@ -1,6 +1,13 @@
 import bcrypt from "bcrypt";
-import Query from "../models/Query.js";
 import Auth from "../models/Auth.js";
+
+/**
+ * Checks if the user is authenticated by verifying the session.
+ * Sends a JSON response with the user information if authenticated, or a 401 status if not.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const checkAuth = (req, res) => {
   if (req.session.user) {
@@ -14,6 +21,14 @@ const checkAuth = (req, res) => {
     });
   }
 };
+
+/**
+ * Registers a new user by checking for existing users and hashing the password.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const register = async (req, res) => {
   try {
@@ -48,6 +63,14 @@ const register = async (req, res) => {
     });
   }
 };
+
+/**
+ * Logs in a user by verifying the email and password, and checking the account status.
+ * Sets the session user and sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const login = async (req, res) => {
   try {
@@ -86,6 +109,14 @@ const login = async (req, res) => {
     });
   }
 };
+
+/**
+ * Logs out the user by destroying the session and clearing the session cookie.
+ * Sends a JSON response indicating success or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
 
 const logout = async (req, res) => {
   req.session.destroy((error) => {

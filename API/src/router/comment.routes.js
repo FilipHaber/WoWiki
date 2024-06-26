@@ -12,10 +12,19 @@ import {
 
 const router = Router();
 
-router.get("/", getAllComments);
-router.get("/usercomments/:id", getCommentsByUserId);
+// Route to get all comments, requires admin authorization
+router.get("/", adminRequired, getAllComments);
+
+// Route to get comments by user ID, requires admin authorization
+router.get("/usercomments/", adminRequired, getCommentsByUserId);
+
+// Route to get comments by character ID
 router.get("/charactercomments/:id", getCommentsByCharacterId);
-router.post("/", addComment);
-router.patch("/:id", editComment);
+
+// Route to add a new comment, requires user authorization
+router.post("/", userRequired, addComment);
+
+// Route to edit a comment by ID, requires user authorization
+router.patch("/:id", userRequired, editComment);
 
 export default router;
