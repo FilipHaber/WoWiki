@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import { adminRequired } from "../middlewares/adminRequired.js";
 import {
   getAllRoles,
   getRoleById,
@@ -9,28 +8,23 @@ import {
   deleteRole,
 } from "../controllers/role.js";
 
+import { adminRequired } from "../middlewares/adminRequired.js";
+
 const router = Router();
 
-// Route to fetch all roles
-router.get("/", getAllRoles);
+// Route to get all Roles, requires admin authorization
+router.get("/", adminRequired, getAllRoles);
 
-// Route to fetch a specific role by ID
-router.get("/:id", getRoleById);
+// Route to get a Role by ID, requires admin authorization
+router.get("/:id", adminRequired, getRoleById);
 
-// Route to add a new role (requires admin permission)
+// Route to add a new Role, requires admin authorization
 router.post("/", adminRequired, addRole);
 
-// Route to edit an existing role (requires admin permission)
+// Route to edit a Role by ID, requires admin authorization
 router.patch("/:id", adminRequired, editRole);
 
-// Route to delete a role by ID (requires admin permission)
+// Route to delete a Role by ID, requires admin authorization
 router.delete("/:id", adminRequired, deleteRole);
 
 export default router;
-
-// {
-//       // "role_name": "Tank",
-//       // "image": "a venir",
-//       // "alt": "a venir",
-//       // "description": "a venir"
-//   }

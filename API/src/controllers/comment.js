@@ -67,27 +67,27 @@ const getCommentsByUserId = async (req, res) => {
 };
 
 /**
- * Retrieves comments by character ID from the database.
+ * Retrieves comments by Person ID from the database.
  * Sends a JSON response with the comments or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const getCommentsByCharacterId = async (req, res) => {
+const getCommentsByPersonId = async (req, res) => {
   try {
     const { id } = req.params;
     const status = 0;
-    const response = await Comment.getByCharacterId(id, status);
+    const response = await Comment.getByPersonId(id, status);
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Aucun commentaire pour ce character",
+        msg: "Aucun commentaire pour ce Person",
       });
     }
 
     res.json({
-      msg: "La récupération des commentaires pour ce character à été un succès !",
+      msg: "La récupération des commentaires pour ce Person à été un succès !",
       response,
     });
   } catch (erorr) {
@@ -160,7 +160,7 @@ const editComment = async (req, res) => {
 export {
   getAllComments,
   getCommentsByUserId,
-  getCommentsByCharacterId,
+  getCommentsByPersonId,
   addComment,
   editComment,
 };

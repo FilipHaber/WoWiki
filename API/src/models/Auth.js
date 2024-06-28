@@ -15,8 +15,7 @@ class Auth {
       WHERE email = ? OR nickname = ?
       `;
 
-    const existingUser = await Query.runWithParams(query, data);
-    return existingUser;
+    return await Query.runWithParams(query, data);
   }
 
   /**
@@ -32,8 +31,7 @@ class Auth {
       VALUES (?, ?, ?)
       `;
 
-    const response = await Query.runWithParams(query, newUser);
-    return response;
+    return await Query.runWithParams(query, newUser);
   }
 
   /**

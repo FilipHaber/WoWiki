@@ -105,6 +105,15 @@ const deleteUserById = async (req, res) => {
       });
     }
 
+    req.session.destroy((error) => {
+      if (error) {
+        return res.status(500).json({
+          msg: "Erreur de serveur",
+        });
+      }
+      res.clearCookie("session_id");
+    });
+
     res.json({
       msg: "Vous avez supprimé votre compté",
     });

@@ -42,7 +42,7 @@ const getAllNoTreatenAlerts = async (req, res) => {
 
 const addAlert = async (req, res) => {
   try {
-    const id = 7;
+    const id = 2;
     const userId = req.session.user.id;
     const response = await Alert.add(id, userId);
 

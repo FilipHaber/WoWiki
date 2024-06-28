@@ -14,8 +14,7 @@ class Comment {
       WHERE status = ?
       `;
 
-    const response = await Query.runWithParams(query, [status]);
-    return response;
+    return await Query.runWithParams(query, [status]);
   }
 
   /**
@@ -32,8 +31,7 @@ class Comment {
       WHERE user_id = ? AND status = ?
       `;
 
-    const response = await Query.runWithParams(query, [id, status]);
-    return response;
+    return await Query.runWithParams(query, [id, status]);
   }
 
   /**
@@ -43,15 +41,14 @@ class Comment {
    * @returns {Promise<Array>} - A promise resolving to an array of comments.
    */
 
-  static async getByCharacterId(id, status) {
+  static async getByPersonId(id, status) {
     const query = `
       SELECT *
       FROM comment
-      WHERE character_id = ? AND status = ?
+      WHERE person_id = ? AND status = ?
       `;
 
-    const response = await Query.runWithParams(query, [id, status]);
-    return response;
+    return await Query.runWithParams(query, [id, status]);
   }
 
   /**
@@ -64,14 +61,13 @@ class Comment {
    */
 
   static async add(data) {
-    // La requete devra être changer "character_id"
+    // La requete devra être changer "person_id"
     const query = `
-      INSERT INTO comment (content, user_id, character_id)
+      INSERT INTO comment (content, user_id, person_id)
       VALUES (?, ?, 6)
       `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
@@ -89,8 +85,7 @@ class Comment {
       WHERE id = ? AND user_id = ?
       `;
 
-    const response = await Query.runWithParams(query, [content, id, userId]);
-    return response;
+    return await Query.runWithParams(query, [content, id, userId]);
   }
 }
 

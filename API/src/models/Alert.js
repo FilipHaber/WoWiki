@@ -10,13 +10,19 @@ class Alert {
 
   static async getAllNoTreaten(status) {
     const query = `
-            SELECT *
+            SELECT 
+            alert.id, alert.alert_date, alert.comment_id, alert.user_id AS alerting_user_id,
+            user_alerting.nickname AS alerting_user_nickname,
+            comment.content AS comment_content, comment.publish_date AS comment_publish_date,
+            user_commented.id AS comment_from_user_id, user_commented.nickname AS comment_from_user_nickname, user_commented.email AS comment_from_user_email
             FROM alert
-            WHERE status = ?
+            INNER JOIN comment ON comment.id = alert.comment_id
+            INNER JOIN user AS user_alerting ON user_alerting.id = alert.user_id
+            INNER JOIN user AS user_commented ON user_commented.id = comment.user_id
+            WHERE alert.status = 0
             `;
 
-    const response = await Query.runWithParams(query, [status]);
-    return response;
+    return await Query.runWithParams(query, [status]);
   }
 
   /**
@@ -33,8 +39,7 @@ class Alert {
             VALUES (?, ?)
             `;
 
-    const response = await Query.runWithParams(query, [id, userId]);
-    return response;
+    return await Query.runWithParams(query, [id, userId]);
   }
 
   /**
@@ -46,14 +51,13 @@ class Alert {
    */
 
   static async edit(status, id) {
-    const query = `
-            UPDATE alert
-            SET status = ?
-            WHERE id = ?
-            `;
+    const query = ` 
+    UPDATE alert 
+    SET status = ? 
+    WHERE id = ? 
+    `;
 
-    const response = await Query.runWithParams(query, [status, id]);
-    return response;
+    return await Query.runWithParams(query, [status, id]);
   }
 }
 

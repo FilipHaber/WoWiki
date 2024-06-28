@@ -12,8 +12,7 @@ class Users {
             FROM user
             `;
 
-    const response = await Query.run(query);
-    return response;
+    return await Query.run(query);
   }
 
   /**
@@ -24,30 +23,31 @@ class Users {
 
   static async getById(id) {
     const query = `
-      SELECT *
+      SELECT 
+      user.id, user.nickname, user.email, user.password, user.created_at, user.status,
+      role.role_name
       FROM user
-      WHERE id = ?
+      INNER JOIN role ON user.role_id = role.id
+      WHERE user.id = ?
       `;
 
-    const response = await Query.runWithParams(query, [id]);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 
   /**
-   * Updates a user's status and function_id in the database.
-   * @param {Array} data - An array containing status, function_id, and user_id.
+   * Updates a user's status and role_id in the database.
+   * @param {Array} data - An array containing status, role_id, and user_id.
    * @returns {Promise<Object>} - A promise resolving to the response from the database.
    */
 
   static async edit(data) {
     const query = `
       UPDATE user
-      SET status = ?, function_id = ?
+      SET status = ?, role_id = ?
       WHERE id = ?
       `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
@@ -62,8 +62,7 @@ class Users {
     where id = ?
     `;
 
-    const response = await Query.runWithParams(query, id);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 }
 

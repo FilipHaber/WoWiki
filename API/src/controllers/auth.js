@@ -93,7 +93,7 @@ const login = async (req, res) => {
       id: user.id,
       email: user.email,
       nickname: user.nickname,
-      isAdmin: user.function_id,
+      isAdmin: user.role_id,
     };
 
     req.session.user = infoUser;

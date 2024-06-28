@@ -12,8 +12,7 @@ class Specialization {
             FROM specialization
             `;
 
-    const response = await Query.run(query);
-    return response;
+    return await Query.run(query);
   }
 
   /**
@@ -29,41 +28,38 @@ class Specialization {
             WHERE id = ?
             `;
 
-    const response = await Query.runWithParams(query, [id]);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 
   /**
    * Adds a new specialization to the database.
-   * @param {Array} data - An array containing specialization_name, description, image, alt, and role_id.
+   * @param {Array} data - An array containing specialization_name, description, image, alt, and tdh_id.
    * @returns {Promise<Object>} - A promise resolving to the response from the database.
    */
 
   static async add(data) {
     const query = `
-            INSERT INTO specialization (specialization_name, description, image, alt, role_id)
+            INSERT INTO specialization (specialization_name, description, image, alt, tdh_id)
             VALUES (?, ?, ?, ?, ?)
             `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
    * Edits an existing specialization in the database.
-   * @param {Array} data - An array containing specialization_name, description, image, alt, role_id, and id.
+   * @param {Array} data - An array containing specialization_name, description, image, alt, tdh_id, and id.
    * @returns {Promise<Object>} - A promise resolving to the response from the database.
    */
 
   static async edit(data) {
     const query = `
             UPDATE specialization
-            SET specialization_name = ?, description = ?, image = ?, alt = ?, role_id = ?
+            SET specialization_name = ?, description = ?, image = ?, alt = ?, tdh_id = ?
             WHERE id = ?
             `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
@@ -78,8 +74,7 @@ class Specialization {
             WHERE id = ?
             `;
 
-    const response = await Query.runWithParams(query, [id]);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 }
 

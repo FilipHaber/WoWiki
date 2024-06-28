@@ -1,29 +1,29 @@
-import CharacterSkills from "../models/CharacterSkills.js";
+import Tdh from "../models/Tdh.js";
 
 /**
- * Retrieves all character skills from the database.
- * Sends a JSON response with the character skills or an appropriate error message.
+ * Retrieves all Tdh from the database.
+ * Sends a JSON response with the Tdh or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const getAllCharacterSkills = async (req, res) => {
+const getAllTdh = async (req, res) => {
   try {
-    const response = await CharacterSkills.getAll();
+    const response = await Tdh.getAll();
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Aucun CharacterSkills n'a été trouvé dans la bdd !",
+        msg: "Aucun Tdh présent dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Les characterSkills ont été bien été récupérer",
+      msg: "La récupération de tous les Tdh à été réussi !",
       response,
     });
   } catch (error) {
-    res.status(500).json({
+    res.json({
       msg: "Erreur de serveur",
       error,
     });
@@ -31,26 +31,26 @@ const getAllCharacterSkills = async (req, res) => {
 };
 
 /**
- * Retrieves character skills by their ID from the database.
- * Sends a JSON response with the character skills or an appropriate error message.
+ * Retrieves a specific Tdh by its ID from the database.
+ * Sends a JSON response with the Tdh or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const getCharacterSkillsById = async (req, res) => {
+const getTdhById = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await CharacterSkills.getById(id);
+    const response = await Tdh.getById(id);
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Le characterSkills demandé n'existe pas dans la bdd !",
+        msg: "Le Tdh demandé n'existe pas dans la bdd",
       });
     }
 
     res.json({
-      msg: "Le characterSkills à bien été récupérer !",
+      msg: "La récupartion du Tdh par son ID à été réussi !",
       response,
     });
   } catch (error) {
@@ -62,20 +62,20 @@ const getCharacterSkillsById = async (req, res) => {
 };
 
 /**
- * Adds new character skills to the database.
+ * Adds a new Tdh to the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const addCharacterSkills = async (req, res) => {
+const addTdh = async (req, res) => {
   try {
     const data = req.body;
-    const response = await CharacterSkills.add(data);
+    const response = await Tdh.add(data);
 
     res.json({
-      msg: "Le characterSkills à été ajouté avec succès !",
+      msg: "Le Tdh à été ajouté avec succès !",
       response,
     });
   } catch (error) {
@@ -87,27 +87,27 @@ const addCharacterSkills = async (req, res) => {
 };
 
 /**
- * Edits existing character skills in the database.
+ * Edits an existing Tdh in the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const editCharacterSkills = async (req, res) => {
+const editTdh = async (req, res) => {
   try {
     const { id } = req.params;
     const data = { ...req.body, id };
-    const response = await CharacterSkills.edit(data);
+    const response = await Tdh.edit(data);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "Le characterSkills n'a pas pu être modifié car il n'existe pas dans la bdd !",
+        msg: "le Tdh n'a pas pu être modifiée car il n'existe pas dans la bdd",
       });
     }
 
     res.json({
-      msg: "Le characterSkills à été modifié avec succès !",
+      msg: "Le Tdh à été modifié avec succès !",
       response,
     });
   } catch (error) {
@@ -119,26 +119,26 @@ const editCharacterSkills = async (req, res) => {
 };
 
 /**
- * Deletes character skills by their ID from the database.
+ * Deletes a specific Tdh by its ID from the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const deleteCharacterSkills = async (req, res) => {
+const deleteTdh = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await CharacterSkills.deleteById(id);
+    const response = await Tdh.deleteById(id);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "Le characterSkills n'a pas pu être supprimé car il n'existe pas dans la bdd !",
+        msg: "le Tdh n'a pas pu être supprimée car il n'existe pas dans la bdd",
       });
     }
 
     res.json({
-      msg: "Le characterSkills à été supprimé avec succès !",
+      msg: "Le Tdh à été supprimer avec succès",
       response,
     });
   } catch (error) {
@@ -149,10 +149,4 @@ const deleteCharacterSkills = async (req, res) => {
   }
 };
 
-export {
-  getAllCharacterSkills,
-  getCharacterSkillsById,
-  addCharacterSkills,
-  editCharacterSkills,
-  deleteCharacterSkills,
-};
+export { getAllTdh, getTdhById, addTdh, editTdh, deleteTdh };

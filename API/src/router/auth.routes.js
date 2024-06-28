@@ -2,8 +2,7 @@ import { Router } from "express";
 
 import { checkAuth, register, login, logout } from "../controllers/auth.js";
 import { userRequired } from "../middlewares/userRequired.js";
-import { checkPassword } from "../middlewares/checkPassword.js";
-import { checkMail } from "../middlewares/checkMail.js";
+import { checkPassword, checkMail } from "../middlewares/verifRegister.js";
 
 const router = Router();
 

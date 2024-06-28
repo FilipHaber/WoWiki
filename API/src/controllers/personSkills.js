@@ -1,25 +1,25 @@
-import Function from "../models/Function.js";
+import PersonSkills from "../models/PersonSkills.js";
 
 /**
- * Retrieves all functions from the database.
- * Sends a JSON response with the functions or an appropriate error message.
+ * Retrieves all person skills from the database.
+ * Sends a JSON response with the person skills or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const getAllFunctions = async (req, res) => {
+const getAllPersonSkills = async (req, res) => {
   try {
-    const response = await Function.getAll();
+    const response = await PersonSkills.getAll();
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Aucune function trouvé dans la bdd !",
+        msg: "Aucun personSkills n'a été trouvé dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Toutes les functions ont bien été récupérer !",
+      msg: "Les personSkills ont été bien été récupérer",
       response,
     });
   } catch (error) {
@@ -31,26 +31,26 @@ const getAllFunctions = async (req, res) => {
 };
 
 /**
- * Retrieves a specific function by its ID from the database.
- * Sends a JSON response with the function or an appropriate error message.
+ * Retrieves person skills by their ID from the database.
+ * Sends a JSON response with the person skills or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const getFunctionById = async (req, res) => {
+const getPersonSkillsById = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Function.getById(id);
+    const response = await PersonSkills.getById(id);
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "La function demandé n'existe pas dans la bdd !",
+        msg: "Le personSkills demandé n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "La function à bien été récupérer !",
+      msg: "Le personSkills à bien été récupérer !",
       response,
     });
   } catch (error) {
@@ -62,20 +62,20 @@ const getFunctionById = async (req, res) => {
 };
 
 /**
- * Adds a new function to the database.
+ * Adds new person skills to the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const addFunction = async (req, res) => {
+const addPersonSkills = async (req, res) => {
   try {
     const data = req.body;
-    const response = await Function.add(data);
+    const response = await PersonSkills.add(data);
 
     res.json({
-      msg: "La function à bien été ajoutée !",
+      msg: "Le personSkills à été ajouté avec succès !",
       response,
     });
   } catch (error) {
@@ -87,27 +87,27 @@ const addFunction = async (req, res) => {
 };
 
 /**
- * Edits an existing function in the database.
+ * Edits existing person skills in the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const editFunction = async (req, res) => {
+const editPersonSkills = async (req, res) => {
   try {
     const { id } = req.params;
     const data = { ...req.body, id };
-    const response = await Function.edit(data);
+    const response = await PersonSkills.edit(data);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "La function n'a pas pu être modifiée car elle n'existe pas dans la bdd !",
+        msg: "Le personSkills n'a pas pu être modifié car il n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "La function à été modifié avec succès !",
+      msg: "Le personSkills à été modifié avec succès !",
       response,
     });
   } catch (error) {
@@ -119,26 +119,26 @@ const editFunction = async (req, res) => {
 };
 
 /**
- * Deletes a specific function by its ID from the database.
+ * Deletes person skills by their ID from the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
  */
 
-const deleteFunction = async (req, res) => {
+const deletePersonSkills = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Function.deleteById(id);
+    const response = await PersonSkills.deleteById(id);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "La function n'a pas pu être supprimé car elle n'existe pas dans la bdd !",
+        msg: "Le personSkills n'a pas pu être supprimé car il n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "La function à été supprimer avec succès !",
+      msg: "Le personSkills à été supprimé avec succès !",
       response,
     });
   } catch (error) {
@@ -150,9 +150,9 @@ const deleteFunction = async (req, res) => {
 };
 
 export {
-  getAllFunctions,
-  getFunctionById,
-  addFunction,
-  editFunction,
-  deleteFunction,
+  getAllPersonSkills,
+  getPersonSkillsById,
+  addPersonSkills,
+  editPersonSkills,
+  deletePersonSkills,
 };

@@ -1,8 +1,8 @@
-import Roles from "../models/Role.js";
+import Role from "../models/Role.js";
 
 /**
- * Retrieves all roles from the database.
- * Sends a JSON response with the roles or an appropriate error message.
+ * Retrieves all Roles from the database.
+ * Sends a JSON response with the Roles or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
@@ -10,47 +10,16 @@ import Roles from "../models/Role.js";
 
 const getAllRoles = async (req, res) => {
   try {
-    const response = await Roles.getAll();
+    const response = await Role.getAll();
 
     if (!response.length) {
       return res.status(404).json({
-        msg: "Aucun role présent dans la bdd !",
+        msg: "Aucune Role trouvé dans la bdd !",
       });
     }
 
     res.json({
-      msg: "La récupération de tous les roles à été réussi !",
-      response,
-    });
-  } catch (error) {
-    res.json({
-      msg: "Erreur de serveur",
-      error,
-    });
-  }
-};
-
-/**
- * Retrieves a specific role by its ID from the database.
- * Sends a JSON response with the role or an appropriate error message.
- *
- * @param {Object} req - The request object from the client.
- * @param {Object} res - The response object to be sent to the client.
- */
-
-const getRoleById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const response = await Roles.getById(id);
-
-    if (!response.length) {
-      return res.status(404).json({
-        msg: "Le role demandé n'existe pas dans la bdd",
-      });
-    }
-
-    res.json({
-      msg: "La récupartion du role par son ID à été réussi !",
+      msg: "Toutes les Roles ont bien été récupérer !",
       response,
     });
   } catch (error) {
@@ -62,7 +31,38 @@ const getRoleById = async (req, res) => {
 };
 
 /**
- * Adds a new role to the database.
+ * Retrieves a specific Role by its ID from the database.
+ * Sends a JSON response with the Role or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
+const getRoleById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await Role.getById(id);
+
+    if (!response.length) {
+      return res.status(404).json({
+        msg: "La Role demandé n'existe pas dans la bdd !",
+      });
+    }
+
+    res.json({
+      msg: "La Role à bien été récupérer !",
+      response,
+    });
+  } catch (error) {
+    res.status(500).json({
+      msg: "Erreur de serveur",
+      error,
+    });
+  }
+};
+
+/**
+ * Adds a new Role to the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
@@ -72,10 +72,10 @@ const getRoleById = async (req, res) => {
 const addRole = async (req, res) => {
   try {
     const data = req.body;
-    const response = await Roles.add(data);
+    const response = await Role.add(data);
 
     res.json({
-      msg: "Le role à été ajouté avec succès !",
+      msg: "La Role à bien été ajoutée !",
       response,
     });
   } catch (error) {
@@ -87,7 +87,7 @@ const addRole = async (req, res) => {
 };
 
 /**
- * Edits an existing role in the database.
+ * Edits an existing Role in the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
@@ -98,16 +98,16 @@ const editRole = async (req, res) => {
   try {
     const { id } = req.params;
     const data = { ...req.body, id };
-    const response = await Roles.edit(data);
+    const response = await Role.edit(data);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "le role n'a pas pu être modifiée car il n'existe pas dans la bdd",
+        msg: "La Role n'a pas pu être modifiée car elle n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Le role à été modifié avec succès !",
+      msg: "La Role à été modifié avec succès !",
       response,
     });
   } catch (error) {
@@ -119,7 +119,7 @@ const editRole = async (req, res) => {
 };
 
 /**
- * Deletes a specific role by its ID from the database.
+ * Deletes a specific Role by its ID from the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
@@ -129,16 +129,16 @@ const editRole = async (req, res) => {
 const deleteRole = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await Roles.deleteById(id);
+    const response = await Role.deleteById(id);
 
     if (response.affectedRows === 0) {
       return res.status(404).json({
-        msg: "le role n'a pas pu être supprimée car il n'existe pas dans la bdd",
+        msg: "La Role n'a pas pu être supprimé car elle n'existe pas dans la bdd !",
       });
     }
 
     res.json({
-      msg: "Le role à été supprimer avec succès",
+      msg: "La Role à été supprimer avec succès !",
       response,
     });
   } catch (error) {

@@ -1,9 +1,9 @@
 import Query from "./Query.js";
 
-class Roles {
+class Role {
   /**
-   * Retrieves all roles from the database.
-   * @returns {Promise<Array>} - A promise resolving to an array of roles.
+   * Retrieves all Roles from the database.
+   * @returns {Promise<Array>} - A promise resolving to an array of Roles.
    */
 
   static async getAll() {
@@ -12,75 +12,71 @@ class Roles {
       FROM role
       `;
 
-    const response = await Query.run(query);
-    return response;
+    return await Query.run(query);
   }
 
   /**
-   * Retrieves a role by its ID from the database.
-   * @param {number} id - The ID of the role to retrieve.
-   * @returns {Promise<Object>} - A promise resolving to the role object.
+   * Retrieves a Role by its ID from the database.
+   * @param {number} id - The ID of the Role to retrieve.
+   * @returns {Promise<Object>} - A promise resolving to the Role object.
    */
 
   static async getById(id) {
     const query = `
-      SELECT id, role_name, image, alt, description
+      SELECT *
       FROM role
       WHERE id = ?
       `;
 
-    const response = await Query.runWithParams(query, [id]);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 
   /**
-   * Adds a new role to the database.
-   * @param {Array} data - An array containing role_name, image, alt, and description.
-   * @returns {Promise<Object>} - A promise resolving to the response from the database.
+   * Adds a new Role to the database.
+   * @param {string} Role_name - The name of the Role to add.
+   * @returns {Promise<Object>} - A promise resolving to the response object from the database.
    */
 
   static async add(data) {
     const query = `
-      INSERT INTO role (role_name, image, alt, description)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO role (role_name)
+      VALUES (?)
       `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
-   * Edits an existing role in the database.
-   * @param {Array} data - An array containing role_name, image, alt, description, and id.
-   * @returns {Promise<Object>} - A promise resolving to the response from the database.
+   * Updates an existing Role's name in the database.
+   * @param {string} role_name - The updated name of the Role.
+   * @param {number} id - The ID of the Role to update.
+   * @returns {Promise<Object>} - A promise resolving to the response object from the database.
    */
 
   static async edit(data) {
     const query = `
       UPDATE role
-      SET role_name = ?, image = ?, alt = ?, description = ?
+      SET role_name = ?
       WHERE id = ?
       `;
 
-    const response = await Query.runWithParams(query, data);
-    return response;
+    return await Query.runWithParams(query, data);
   }
 
   /**
-   * Deletes a role from the database by its ID.
-   * @param {number} id - The ID of the role to delete.
-   * @returns {Promise<Object>} - A promise resolving to the response from the database.
+   * Deletes a Role from the database by its ID.
+   * @param {number} id - The ID of the Role to delete.
+   * @returns {Promise<Object>} - A promise resolving to the response object from the database.
    */
 
   static async deleteById(id) {
     const query = `
-            DELETE FROM role
-            WHERE id = ?
-            `;
+      DELETE FROM role
+      WHERE id = ?
+      `;
 
-    const response = await Query.runWithParams(query, [id]);
-    return response;
+    return await Query.runWithParams(query, [id]);
   }
 }
 
-export default Roles;
+export default Role;
