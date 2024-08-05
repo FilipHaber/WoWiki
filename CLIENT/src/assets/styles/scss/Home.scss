@@ -1,0 +1,25 @@
+#home {
+  button {
+    cursor: pointer;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 2rem;
+    article {
+      h4 {
+        padding-bottom: 1rem;
+      }
+      img {
+        width: 15rem;
+      }
+    }
+  }
+
+  .section-class-spe {
+    display: flex;
+    flex-direction: column;
+  }
+}
