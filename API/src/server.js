@@ -1,14 +1,13 @@
 import "dotenv/config";
-import { createRequire } from "module";
 import express from "express";
-import session from "express-session";
 import cors from "cors";
-
-import pool from "./config/db.js";
+import path from "path";
+import { fileURLToPath } from "url";
 import router from "./router/index.routes.js";
+import newSession from "./config/session.js";
 
-const require = createRequire(import.meta.url);
-const MySQLStore = require("express-mysql-session")(session);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const app = express();
 
@@ -17,37 +16,12 @@ const corsOptions = cors({
   credentials: true,
 });
 
-const sessionStore = new MySQLStore(
-  {
-    clearExpired: true,
-    checkExpirationInterval: 900000,
-    expiration: 3600000,
-  },
-  pool
-);
-
-const newSession = session({
-  name: "session_id",
-  secret: process.env.SECRET_SESSION,
-  resave: false,
-  saveUninitialized: false,
-  store: sessionStore,
-  cookie: {
-    secure: false,
-    httpOnly: true,
-    sameSite: "lax",
-    maxAge: 3600000,
-    domain: "localhost",
-  },
-  rolling: true,
-});
-
 app.use(corsOptions);
 
 app.use(newSession);
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(dirname, "public")));
 
 app.use(router);
 

@@ -1,0 +1,34 @@
+#tdh {
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    article {
+      h4 {
+        padding-bottom: 1rem;
+      }
+    }
+  }
+
+  img {
+    width: 8rem;
+  }
+
+  .tdh-hr {
+    margin-top: 3rem;
+  }
+
+  .tdh-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    transition: transform 0.5s ease-in-out;
+  }
+  .tdh-card:hover {
+    transform: scale(1.1);
+  }
+}

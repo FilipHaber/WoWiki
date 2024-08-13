@@ -2,7 +2,11 @@ import { Router } from "express";
 
 import { checkAuth, register, login, logout } from "../controllers/auth.js";
 import { userRequired } from "../middlewares/userRequired.js";
-import { checkPassword, checkMail } from "../middlewares/verifRegister.js";
+import {
+  checkPassword,
+  checkMail,
+  checkNickname,
+} from "../middlewares/verifRegister.js";
 
 const router = Router();
 
@@ -10,10 +14,10 @@ const router = Router();
 router.get("/", checkAuth);
 
 // Route to register a new user
-router.post("/register", checkMail, checkPassword, register);
+router.post("/register", checkNickname, checkMail, checkPassword, register);
 
 // Route to authenticate and login a user
-router.post("/login", login);
+router.post("/login", checkMail, checkPassword, login);
 
 // Route to logout a user, requires user authentication
 router.get("/logout", userRequired, logout);

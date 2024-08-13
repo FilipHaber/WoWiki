@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
-import "../../assets/styles/scss/Home.scss";
-import icondh from "../../assets/images/v4.webp";
-import heal from "../../assets/images/healof.webp";
+import "../assets/styles/scss/Home.scss";
+import icondh from "../assets/images/v4.webp";
+import heal from "../assets/images/heal.webp";
 
 function Home() {
   return (
@@ -36,12 +36,15 @@ function Home() {
         <h3>Classes et Spécialisations !</h3>
         <article>
           <h4>Classes</h4>
-          <NavLink></NavLink>
-          <img src={icondh} alt="" />
+          <NavLink to="classes">
+            <img src={icondh} alt="" />
+          </NavLink>
         </article>
         <article>
           <h4>Spécialisations</h4>
-          <img src={heal} alt="" />
+          <NavLink to="specialisations">
+            <img src={heal} alt="" />
+          </NavLink>
         </article>
       </section>
     </main>

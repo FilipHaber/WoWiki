@@ -10,10 +10,14 @@
     padding-bottom: 2rem;
     article {
       h4 {
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
       }
       img {
         width: 15rem;
+        transition: transform 0.5s ease-in-out;
+      }
+      img:hover {
+        transform: scale(1.2);
       }
     }
   }

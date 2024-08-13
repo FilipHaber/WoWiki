@@ -55,11 +55,12 @@ function Register() {
     if (
       response.status === 401 ||
       response.status === 500 ||
-      response.status === 400
+      response.status === 400 ||
+      response.status === 409
     ) {
       setError(responseParsed.message);
       setSucces(
-        "Les informations que vous avez saisis ne sont pas bonnes ou ne respectent pas les critères du site"
+        "Les informations que vous avez saisis sont soit déjà utilisé par un autre utilisateur soit ne respectent pas les critères du site"
       );
       setShowToast(true);
       setTimeout(() => {
@@ -196,7 +197,9 @@ function Register() {
         </button>
       </form>
       <NavLink to={"/login"} className={"link-hover"}>
-        <p>Vous avez déjà un compte ? Connectez-vous !</p>
+        <p>
+          Vous avez déjà un compte ? <br /> Connectez-vous !
+        </p>
       </NavLink>
       {showToast && (
         <Toast

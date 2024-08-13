@@ -42,4 +42,26 @@ function checkPassword(req, res, next) {
   next();
 }
 
-export { checkPassword, checkMail };
+/**
+ * Middleware function to validate the format of a user's nickname.
+ * If the nickname format is incorrect, sends a 400 Bad Request response.
+ * If the nickname format is correct, allows the request to proceed.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ * @param {Function} next - The next function to pass control to the next middleware/route handler.
+ */
+
+function checkNickname(req, res, next) {
+  const nickname = req.body.nickname;
+  const regex = /^[a-zA-Z0-9]{2,30}$/;
+
+  if (!regex.test(nickname)) {
+    return res.status(400).json({
+      msg: "Le surnom doit contenir au minimum 2 caractères et au maximum 30 caractères, seuls les lettres et les chiffres sont acceptés !",
+    });
+  }
+  next();
+}
+
+export { checkPassword, checkMail, checkNickname };

@@ -51,6 +51,22 @@ class Users {
   }
 
   /**
+   * Updates a user's password in the database.
+   * @param {Array} data - An array containing password and user's id.
+   * @returns {Promise<Object>} - A promise resolving to the response from the database.
+   */
+
+  static async editPassword([newHashedPassword, id]) {
+    const query = `
+      UPDATE user
+      SET password = ?
+      WHERE id = ?
+      `;
+
+    return await Query.runWithParams(query, [newHashedPassword, id]);
+  }
+
+  /**
    * Deletes a user from the database by their ID.
    * @param {number} id - The ID of the user to delete.
    * @returns {Promise<Object>} - A promise resolving to the response from the database.

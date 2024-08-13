@@ -1,0 +1,13 @@
+#dashboard {
+  section {
+    display: flex;
+    flex-direction: column;
+  }
+  .user-info {
+    text-align: left;
+    padding: 2rem 0 2rem 0;
+  }
+  td {
+    padding: 0.5rem;
+  }
+}

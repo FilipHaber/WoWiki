@@ -109,7 +109,9 @@ function Login() {
         </button>
       </form>
       <NavLink to={"/register"} className={"link-hover"}>
-        <p>Vous n'avez pas de compte ? Créez votre compte !</p>
+        <p>
+          Vous n'avez pas de compte ? <br /> Créez votre compte !
+        </p>
       </NavLink>
     </main>
   );

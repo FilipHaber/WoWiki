@@ -26,7 +26,7 @@ class Persons {
     const query = `
     SELECT
     person.id, person.person_name, person.image AS person_image, person.alt AS person_alt, person.description AS person_description,
-    specialization.specialization_name, specialization.image AS specialization_image, specialization.alt AS specialization_alt, specialization.description AS specialization_description,
+    specialization.specialization_name, specialization.image AS specialization_image, specialization.alt AS specialization_alt, specialization.description AS specialization_description, specialization.important_skills, specialization.skill1, specialization.skill2,
     tdh.tdh_name, tdh.image AS tdh_image, tdh.alt AS tdh_alt, tdh.description AS tdh_description
     FROM person
     LEFT JOIN person_skills ON person.id = person_skills.person_id

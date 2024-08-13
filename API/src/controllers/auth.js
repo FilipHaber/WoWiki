@@ -83,17 +83,12 @@ const login = async (req, res) => {
       });
     }
 
-    if (user.status === 1) {
-      return res.status(401).json({
-        msg: "Votre compte a été suspendu !",
-      });
-    }
-
     const infoUser = {
       id: user.id,
       email: user.email,
       nickname: user.nickname,
       isAdmin: user.role_id,
+      status: user.status,
     };
 
     req.session.user = infoUser;

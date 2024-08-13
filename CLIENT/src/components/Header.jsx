@@ -1,11 +1,11 @@
-import { useUser } from "../../hooks/UseUser";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../hooks/UseUser";
 
-import "../../assets/styles/scss/Header.scss";
-import Logo from "../../assets/images/Logo.png";
-import UseMenu from "../../hooks/UseMenu";
+import "../assets/styles/scss/Header.scss";
+import Logo from "../assets/images/Logo.webp";
+import UseMenu from "../hooks/UseMenu";
 
 function Header() {
   const { user, logout } = useUser();
@@ -39,13 +39,29 @@ function Header() {
           <FontAwesomeIcon icon={faXmark} />
         </button>
 
+        <NavLink to="/" className={"bar-nav"} onClick={toggleMenu}>
+          Accueil
+        </NavLink>
+
+        <NavLink to="/classes" className={"bar-nav"} onClick={toggleMenu}>
+          Classes
+        </NavLink>
+
+        <NavLink
+          to="/specialisations"
+          className={"bar-nav"}
+          onClick={toggleMenu}
+        >
+          Spécialisations
+        </NavLink>
+
         {user.isLogged ? (
           <button onClick={logout} className={"bar-nav"}>
             Déconnexion
           </button>
         ) : (
-          <NavLink to={"/login"} className={"bar-nav"}>
-            <p onClick={toggleMenu}>Se connecter</p>
+          <NavLink to={"/login"} className={"bar-nav"} onClick={toggleMenu}>
+            Se connecter
           </NavLink>
         )}
       </nav>

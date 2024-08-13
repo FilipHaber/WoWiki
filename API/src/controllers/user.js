@@ -1,4 +1,5 @@
 import Users from "../models/User.js";
+import bcrypt from "bcrypt";
 
 /**
  * Retrieves all users from the database.
@@ -87,6 +88,63 @@ const editUser = async (req, res) => {
 };
 
 /**
+ * Updates an existing user's password in the database.
+ * Sends a JSON response with the updated user's password or an appropriate error message.
+ *
+ * @param {Object} req - The request object from the client.
+ * @param {Object} res - The response object to be sent to the client.
+ */
+
+const editUserPassword = async (req, res) => {
+  try {
+    const id = user.id;
+    const { currentPassword, newPassword } = req.body;
+
+    const user = await Users.getById(id);
+    console.log("ID:", user.id);
+    console.log("Current Password:", currentPassword);
+    console.log("New Password:", newPassword);
+
+    if (!user) {
+      console.log("User not found");
+      return res
+        .status(404)
+        .json({ msg: "L'utilisateur n'a pas été trouvé !" });
+    }
+
+    console.log("currentPassword :", currentPassword);
+    console.log("user password :", user.password);
+
+    const passwordsMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!passwordsMatch) {
+      console.log("Password does not match");
+      return res
+        .status(401)
+        .json({ msg: "Le mot de passe actuel est incorrect." });
+    }
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const response = await Users.editPassword([newHashedPassword, id]);
+    console.log("Password Update Response:", response);
+
+    if (response.affectedRows === 0) {
+      console.log("Password update failed");
+      return res
+        .status(400)
+        .json({ msg: "La mise à jour du mot de passe a échoué." });
+    }
+
+    res.json({
+      msg: "Le mot de passe de l'utilisateur a été modifié avec succès !",
+    });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du mot de passe :", error);
+    res.status(500).json({ msg: "Erreur de serveur", error: error.message });
+  }
+};
+
+/**
  * Deletes the authenticated user's account from the database.
  * Sends a JSON response indicating success or an appropriate error message.
  *
@@ -125,4 +183,4 @@ const deleteUserById = async (req, res) => {
   }
 };
 
-export { getAllUsers, getUserById, editUser, deleteUserById };
+export { getAllUsers, getUserById, editUser, deleteUserById, editUserPassword };

@@ -7,6 +7,7 @@ function useCheckAuth() {
 
   useEffect(() => {
     async function fetchAuthentication() {
+      console.log("authentification");
       try {
         const response = await fetch("http://localhost:9000/api/auth", {
           credentials: "include",
@@ -25,6 +26,7 @@ function useCheckAuth() {
         console.log(`Fetch error: ${error.message}`);
       } finally {
         setIsLoading(false);
+        console.log(user);
       }
     }
     fetchAuthentication();
