@@ -19,7 +19,14 @@ function Router() {
         <Route path="classes" element={<Person />} />
         <Route path="classes/:id" element={<PersonById />} />
         <Route path="dashboard" element={<UserDashboard />} />
-        <Route path="*" element={<p>NOT FOUND</p>} />
+        <Route
+          path="*"
+          element={
+            <main>
+              <p>Cette page n'existe pas</p>
+            </main>
+          }
+        />
       </Routes>
       <Footer />
     </>

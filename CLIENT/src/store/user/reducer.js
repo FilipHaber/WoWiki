@@ -4,6 +4,8 @@ const initialState = {
   isAdmin: false,
   status: null,
   id: null,
+  email: null,
+  created_at: null,
 };
 
 function reducer(state, action) {
@@ -16,6 +18,8 @@ function reducer(state, action) {
         isAdmin: action.payload.isAdmin,
         status: action.payload.status,
         id: action.payload.id,
+        email: action.payload.email,
+        created_at: action.payload.created_at,
       };
     case "LOGOUT":
       return initialState;

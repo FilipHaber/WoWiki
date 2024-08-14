@@ -24,12 +24,17 @@ function UserProvider({ children }) {
     }
   }
 
+  async function disconnect() {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  }
+
   async function setUser(user) {
     dispatch({ type: "LOGIN", payload: user });
   }
 
   return (
-    <Context.Provider value={{ user, setUser, login, logout }}>
+    <Context.Provider value={{ user, setUser, login, logout, disconnect }}>
       {children}
     </Context.Provider>
   );

@@ -25,6 +25,6 @@ router.patch("/:id", adminRequired, editUser);
 router.patch("/password/:id", editUserPassword);
 
 // Route to delete a user (user's own account deletion, user access required)
-router.delete("/", userRequired, deleteUserById);
+router.delete("/:id", userRequired, deleteUserById);
 
 export default router;

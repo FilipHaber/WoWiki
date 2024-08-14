@@ -88,8 +88,8 @@ const editUser = async (req, res) => {
 };
 
 /**
- * Updates an existing user's password in the database.
- * Sends a JSON response with the updated user's password or an appropriate error message.
+ * Updates the authenticated user's password in the database.
+ * Sends a JSON response indicating success or an appropriate error message.
  *
  * @param {Object} req - The request object from the client.
  * @param {Object} res - The response object to be sent to the client.
@@ -97,50 +97,44 @@ const editUser = async (req, res) => {
 
 const editUserPassword = async (req, res) => {
   try {
-    const id = user.id;
+    const { id } = req.session.user.id;
     const { currentPassword, newPassword } = req.body;
 
-    const user = await Users.getById(id);
-    console.log("ID:", user.id);
-    console.log("Current Password:", currentPassword);
-    console.log("New Password:", newPassword);
+    const userArray = await Users.getById(id);
 
-    if (!user) {
-      console.log("User not found");
-      return res
-        .status(404)
-        .json({ msg: "L'utilisateur n'a pas été trouvé !" });
+    if (!userArray || userArray.length === 0) {
+      return res.status(404).json({
+        msg: "L'utilisateur n'a pas été trouvé !",
+      });
     }
 
-    console.log("currentPassword :", currentPassword);
-    console.log("user password :", user.password);
+    const user = userArray[0];
 
     const passwordsMatch = await bcrypt.compare(currentPassword, user.password);
     if (!passwordsMatch) {
-      console.log("Password does not match");
-      return res
-        .status(401)
-        .json({ msg: "Le mot de passe actuel est incorrect." });
+      return res.status(401).json({
+        msg: "Le mot de passe est incorrect",
+      });
     }
 
     const newHashedPassword = await bcrypt.hash(newPassword, 10);
 
     const response = await Users.editPassword([newHashedPassword, id]);
-    console.log("Password Update Response:", response);
 
     if (response.affectedRows === 0) {
-      console.log("Password update failed");
-      return res
-        .status(400)
-        .json({ msg: "La mise à jour du mot de passe a échoué." });
+      return res.status(400).json({
+        msg: "Échec de la mise à jour du mot de passe",
+      });
     }
 
     res.json({
-      msg: "Le mot de passe de l'utilisateur a été modifié avec succès !",
+      msg: "Le mot de passe de l'utilisateur à été modifié !",
     });
   } catch (error) {
-    console.error("Erreur lors de la mise à jour du mot de passe :", error);
-    res.status(500).json({ msg: "Erreur de serveur", error: error.message });
+    res.status(500).json({
+      msg: "Erreur de serveur",
+      error: error.message,
+    });
   }
 };
 
@@ -170,10 +164,10 @@ const deleteUserById = async (req, res) => {
         });
       }
       res.clearCookie("session_id");
-    });
 
-    res.json({
-      msg: "Vous avez supprimé votre compté",
+      res.json({
+        msg: "Vous avez supprimé votre compté",
+      });
     });
   } catch (error) {
     res.status(500).json({

@@ -10,7 +10,7 @@
 
 function checkMail(req, res, next) {
   const email = req.body.email;
-  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
+  const regex = /^(?!.*\s)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
   if (!regex.test(email)) {
     return res.status(400).json({
       msg: "Le email est incorrect",
@@ -32,7 +32,7 @@ function checkMail(req, res, next) {
 function checkPassword(req, res, next) {
   const password = req.body.password;
   const regex =
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
+    /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
 
   if (!regex.test(password)) {
     return res.status(400).json({
@@ -54,7 +54,7 @@ function checkPassword(req, res, next) {
 
 function checkNickname(req, res, next) {
   const nickname = req.body.nickname;
-  const regex = /^[a-zA-Z0-9]{2,30}$/;
+  const regex = /^(?!.*\s)[a-zA-Z0-9]{2,30}$/;
 
   if (!regex.test(nickname)) {
     return res.status(400).json({

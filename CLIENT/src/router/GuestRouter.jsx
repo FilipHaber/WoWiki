@@ -8,6 +8,7 @@ import Register from "../views/auth/Register.jsx";
 import Tdh from "../components/Tdh.jsx";
 import Person from "../components/Person.jsx";
 import PersonById from "../components/PersonById.jsx";
+import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 
 function Router() {
   console.log("Guest router");
@@ -21,7 +22,14 @@ function Router() {
         <Route path="specialisations" element={<Tdh />} />
         <Route path="classes" element={<Person />} />
         <Route path="classes/:id" element={<PersonById />} />
-        <Route path="*" element={<p>NOT FOUND</p>} />
+        <Route
+          path="*"
+          element={
+            <main>
+              <p>Cette page n'existe pas</p>
+            </main>
+          }
+        />
       </Routes>
       <Footer />
     </>

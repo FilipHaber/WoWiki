@@ -12,7 +12,7 @@ const EMAIL_REGEX =
   /^(?=.{1,100}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
 const PASSWORD_REGEX =
-  /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
+  /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
 
 function Login() {
   const [email, setEmail, validEmail] = useValidation(EMAIL_REGEX);

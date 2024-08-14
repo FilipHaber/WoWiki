@@ -89,6 +89,8 @@ const login = async (req, res) => {
       nickname: user.nickname,
       isAdmin: user.role_id,
       status: user.status,
+      password: user.passwrd,
+      created_at: user.created_at,
     };
 
     req.session.user = infoUser;
