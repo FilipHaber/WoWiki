@@ -7,26 +7,21 @@ function useCheckAuth() {
 
   useEffect(() => {
     async function fetchAuthentication() {
-      console.log("authentification");
       try {
         const response = await fetch("http://localhost:9000/api/auth", {
           credentials: "include",
         });
         if (response.status === 401) {
-          console.log("Unauthorized");
           return;
         }
         if (response.ok) {
           const data = await response.json();
           login(data.user);
         } else {
-          console.log(`Server error : ${response.status}`);
         }
       } catch (error) {
-        console.log(`Fetch error: ${error.message}`);
       } finally {
         setIsLoading(false);
-        console.log(user);
       }
     }
     fetchAuthentication();

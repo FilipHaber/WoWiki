@@ -27,11 +27,15 @@ class Persons {
     SELECT
     person.id, person.person_name, person.image AS person_image, person.alt AS person_alt, person.description AS person_description,
     specialization.specialization_name, specialization.image AS specialization_image, specialization.alt AS specialization_alt, specialization.description AS specialization_description, specialization.important_skills, specialization.skill1, specialization.skill2,
-    tdh.tdh_name, tdh.image AS tdh_image, tdh.alt AS tdh_alt, tdh.description AS tdh_description
+    tdh.tdh_name, tdh.image AS tdh_image, tdh.alt AS tdh_alt, tdh.description AS tdh_description,
+    comment.id AS comment_id,comment.user_id AS comment_user_id, comment.content AS comment_content, comment.publish_date AS comment_date, comment.status AS comment_status,
+    user.nickname AS user_nickname, user.status AS user_status
     FROM person
     LEFT JOIN person_skills ON person.id = person_skills.person_id
     LEFT JOIN specialization ON person_skills.specialization_id = specialization.id
     LEFT JOIN tdh ON person_skills.tdh_id = tdh.id
+    LEFT JOIN comment ON comment.person_id = person.id
+    LEFT JOIN user ON user.id = comment.user_id
     WHERE person.id = ?
     `;
 

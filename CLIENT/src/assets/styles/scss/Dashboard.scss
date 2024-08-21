@@ -1,7 +1,10 @@
+@import "./Variables.scss";
+
 #dashboard {
   section {
     display: flex;
     flex-direction: column;
+    padding-bottom: 3rem;
   }
   .user-info {
     text-align: center;
@@ -30,31 +33,35 @@
     position: relative;
   }
   .valid {
-    color: limegreen;
+    color: $lime;
   }
 
   .invalid {
-    color: red;
+    color: $red;
   }
   input {
+    width: 80%;
+    margin: auto;
     text-align: center;
     height: 3rem;
+    outline: none;
+    border: none;
+    border-radius: 2rem;
   }
   article {
     button {
       padding: 1rem;
-      // height: 3rem;
       align-self: center;
     }
   }
   .button-disabled {
-    background-color: rgba(18, 165, 50, 0.5);
+    background-color: $disabled-green;
   }
   .button-enabled {
-    background-color: rgb(31, 156, 31);
-    cursor: pointer;
-    border: 0.2rem solid rgb(101, 241, 132);
-    box-shadow: 0px 0px 6px 2px rgba(34, 226, 82, 0.7);
+    background-color: $enabled-green;
+    cursor: $pointer;
+    border: $enabled-border;
+    box-shadow: $green-box-shadow;
   }
   .password-change {
     display: flex;
@@ -62,9 +69,33 @@
     gap: 2rem;
   }
   .delete-user {
-    background-color: red;
-    color: white;
+    background-color: $red;
+    color: $white;
     border: none;
-    cursor: pointer;
+    border-radius: 1rem;
+    cursor: $pointer;
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  #dashboard {
+    input {
+      width: 50%;
+    }
+    .instructions {
+      width: 60%;
+      margin: auto;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  #dashboard {
+    input {
+      width: 40%;
+    }
+    .instructions {
+      width: 50%;
+    }
   }
 }

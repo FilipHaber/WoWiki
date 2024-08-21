@@ -64,7 +64,7 @@ class Comment {
     // La requete devra être changer "person_id"
     const query = `
       INSERT INTO comment (content, user_id, person_id)
-      VALUES (?, ?, 6)
+      VALUES (?, ?, ?)
       `;
 
     return await Query.runWithParams(query, data);

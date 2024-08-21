@@ -8,9 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Toast from "../../components/Toast";
-import { useValidation } from "../../hooks/UseValidation";
-import "../../assets/styles/scss/Auth.scss";
+import Toast from "../components/Toast";
+import { useValidation } from "../hooks/UseValidation";
+import "../assets/styles/scss/Auth.scss";
 
 const EMAIL_REGEX =
   /^(?=.{1,100}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
@@ -18,7 +18,7 @@ const EMAIL_REGEX =
 const PASSWORD_REGEX =
   /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
 
-const NICKNAME_REGEX = /^[a-zA-Z0-9]{2,30}$/;
+const NICKNAME_REGEX = /^[a-zA-Z0-9]{2,20}$/;
 
 function Register() {
   const [email, setEmail, validEmail] = useValidation(EMAIL_REGEX);
@@ -27,6 +27,7 @@ function Register() {
   const [nicknameFocus, setNicknameFocus] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const [succes, setSucces] = useState(null);
   const [showToast, setShowToast] = useState(false);
@@ -52,12 +53,7 @@ function Register() {
     });
     const responseParsed = await response.json();
     form.reset();
-    if (
-      response.status === 401 ||
-      response.status === 500 ||
-      response.status === 400 ||
-      response.status === 409
-    ) {
+    if (!response.ok) {
       setError(responseParsed.message);
       setSucces(
         "Les informations que vous avez saisis sont soit déjà utilisé par un autre utilisateur soit ne respectent pas les critères du site"
@@ -82,7 +78,6 @@ function Register() {
 
   return (
     <main id="auth">
-      {error && <p>{error}</p>}
       <form onSubmit={submitHandler}>
         <label htmlFor="nickname">
           Surnom:
@@ -115,7 +110,7 @@ function Register() {
           <br />
           2 Caractères minimum
           <br />
-          30 Caractères maximum
+          20 Caractères maximum
           <br />
           Uniquement les lettres et les chiffres sont autorisés
         </p>
@@ -184,11 +179,30 @@ function Register() {
           60 Caractères maximum
           <br />1 Majuscule, 1 chiffre, 1 caractère spécial obligatoire
         </p>
+        <label htmlFor="">
+          <span className="checkmark">
+            <input
+              type="checkbox"
+              className="check-box"
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+            />
+            <p>
+              En créant votre compte vous certifiez avoir lu et accepté nos{" "}
+              <br />
+              <NavLink to={"/informations-legales"} className={"link-hover"}>
+                informations légales
+              </NavLink>
+            </p>
+          </span>
+        </label>
         <button
           type="submit"
-          disabled={!validEmail || !validPassword || !validNickname}
+          disabled={
+            !validEmail || !validPassword || !validNickname || !isChecked
+          }
           className={
-            !validEmail || !validPassword || !validNickname
+            !validEmail || !validPassword || !validNickname || !isChecked
               ? "button-disabled"
               : "button-enabled"
           }

@@ -1,14 +1,33 @@
+@import "./Variables.scss";
+
 #person {
   section {
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    padding-bottom: 2rem;
-    article {
-      border-bottom: 0.1rem solid white;
-      h4 {
-        padding-bottom: 1rem;
-      }
+    padding: 0 1rem 2rem 1rem;
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  section::-webkit-scrollbar {
+    width: 1.5rem;
+  }
+  section::-webkit-scrollbar-track {
+    background: rgba(18, 155, 64, 0.1);
+    border-radius: 1rem;
+  }
+  section::-webkit-scrollbar-thumb {
+    background: #7e7272;
+    border-radius: 1rem;
+  }
+  section::-webkit-scrollbar-thumb:hover {
+    background: #695555;
+  }
+  article {
+    border-top: 0.1rem solid $white;
+    padding: 2rem;
+    h4 {
+      padding-bottom: 1rem;
     }
   }
 
@@ -37,6 +56,23 @@
     padding: 0.5rem;
     border: none;
     border-radius: 2rem;
-    box-shadow: 0px 0px 6px 2px rgba(34, 226, 82, 0.7);
+    box-shadow: $green-box-shadow;
+    outline: none;
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  #person {
+    .search-classe {
+      width: 60%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  #person {
+    .search-classe {
+      width: 50%;
+    }
   }
 }

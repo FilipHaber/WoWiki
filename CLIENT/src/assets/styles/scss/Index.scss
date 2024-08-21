@@ -1,3 +1,5 @@
+@import "./Variables.scss";
+
 *,
 *::before,
 *::after {
@@ -21,7 +23,7 @@ body {
 
 a {
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color: $white;
 }
 
 .link-hover:hover {
@@ -30,7 +32,7 @@ a {
 }
 
 main {
-  color: white;
+  color: $white;
   text-align: center;
   width: 85%;
   margin: auto;
@@ -59,4 +61,16 @@ h6 {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+
+@media (min-width: $breakpoint-tablet) {
+  body {
+    font-size: 1.8rem;
+  }
+  main {
+    width: 70%;
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
 }

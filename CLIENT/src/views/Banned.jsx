@@ -13,7 +13,7 @@ function Banned() {
         <FontAwesomeIcon icon={faLock} size={"2x"} />
         <p>
           Si vous souhaitez connaître la raison et/ou la contester, adressez
-          nous un mail à : "wowiki@contact.fr" avec l'adresse mail du compte
+          nous un mail à : wowiki@contact.fr avec l'adresse mail du compte
           suspendu.
         </p>
       </section>

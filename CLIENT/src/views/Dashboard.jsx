@@ -6,18 +6,19 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Toast from "../../components/Toast";
-import ConfirmationToast from "../../components/ConfirmationToast";
+import Toast from "../components/Toast";
+import ConfirmationToast from "../components/ConfirmationToast";
 
-import { useUser } from "../../hooks/UseUser";
-import { useValidation } from "../../hooks/UseValidation";
-import "../../assets/styles/scss/UserDashboard.scss";
+import { useUser } from "../hooks/UseUser";
+import { useValidation } from "../hooks/UseValidation";
+import "../assets/styles/scss/Dashboard.scss";
 
 const PASSWORD_REGEX =
   /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
 
-function UserDashboard() {
+function Dashboard() {
   const { user, disconnect } = useUser();
+
   const [currentPassword, setCurrentPassword, validCurrentPassword] =
     useValidation(PASSWORD_REGEX);
   const [newPassword, setNewPassword, validNewPassword] =
@@ -30,8 +31,7 @@ function UserDashboard() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const createdAt = user.created_at;
-  const createdAtLocal = new Date(createdAt).toLocaleString();
+  const createdAtDate = new Date(user.created_at).toLocaleDateString();
 
   const handleCloseToast = () => {
     setShowToast(false);
@@ -43,10 +43,6 @@ function UserDashboard() {
 
   const handleDeleteAccount = () => {
     setShowConfirmationToast(true);
-  };
-
-  const handleCancelDelete = () => {
-    setShowConfirmationToast(false);
   };
 
   async function deleteSubmitHandler(e) {
@@ -104,7 +100,7 @@ function UserDashboard() {
     form.reset();
     if (response.status === 401 || response.status === 500) {
       setError(responseParsed.message);
-      setSucces("Le mot de passe actuel ne correspond pas");
+      setSucces("Une erreur s'est produite, veuillez réessayer");
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
@@ -124,7 +120,7 @@ function UserDashboard() {
   return (
     <main id="dashboard">
       <section>
-        <h1>Interface utilisateur</h1>
+        <h1>Tableau de bord utilisateur</h1>
         <article className="user-info">
           <table>
             <tbody>
@@ -145,7 +141,7 @@ function UserDashboard() {
 
               <tr>
                 <td>Compte créer le</td>
-                <td>{createdAtLocal}</td>
+                <td>{createdAtDate}</td>
               </tr>
 
               <tr>
@@ -164,7 +160,7 @@ function UserDashboard() {
           <form onSubmit={passwordSubmitHandler}>
             <label htmlFor="currentPassword">Mot de passe actuel</label>
             <input
-              type="password"
+              type="text"
               id="currentPassword"
               name="currentPassword"
               aria-label="Mot de passe actuel"
@@ -235,11 +231,11 @@ function UserDashboard() {
           message="Êtes-vous sûr de vouloir supprimer votre compte ?"
           onCloseOverlay={handleCloseConfirmationToast}
           onConfirm={deleteSubmitHandler}
-          onCancel={handleCancelDelete}
+          onCancel={handleCloseConfirmationToast}
         />
       )}
     </main>
   );
 }
 
-export default UserDashboard;
+export default Dashboard;

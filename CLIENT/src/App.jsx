@@ -7,10 +7,8 @@ import BannedRouter from "./router/BannedRouter";
 
 function App() {
   const [user, isLoading] = useCheckAuth();
-  console.log(user);
 
   if (isLoading) {
-    console.log("Loading");
     return <p>Loading</p>;
   }
 

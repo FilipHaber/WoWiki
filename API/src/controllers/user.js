@@ -97,7 +97,7 @@ const editUser = async (req, res) => {
 
 const editUserPassword = async (req, res) => {
   try {
-    const { id } = req.session.user.id;
+    const { id } = req.session.user;
     const { currentPassword, newPassword } = req.body;
 
     const userArray = await Users.getById(id);
@@ -107,7 +107,6 @@ const editUserPassword = async (req, res) => {
         msg: "L'utilisateur n'a pas été trouvé !",
       });
     }
-
     const user = userArray[0];
 
     const passwordsMatch = await bcrypt.compare(currentPassword, user.password);

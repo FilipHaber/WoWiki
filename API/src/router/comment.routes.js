@@ -22,7 +22,7 @@ router.get("/usercomments/", adminRequired, getCommentsByUserId);
 router.get("/personcomments/:id", getCommentsByPersonId);
 
 // Route to add a new comment, requires user authorization
-router.post("/", userRequired, addComment);
+router.post("/:id", userRequired, addComment);
 
 // Route to edit a comment by ID, requires user authorization
 router.patch("/:id", userRequired, editComment);

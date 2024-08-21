@@ -1,6 +1,8 @@
+@import "./Variables.scss";
+
 header {
   background-color: rgba(46, 34, 34, 0.7);
-  color: white;
+  color: $white;
   padding: 1rem;
   margin: 5rem;
   width: 80%;
@@ -22,14 +24,16 @@ header {
   }
 
   button {
+    font-size: 1.5rem;
+    height: 4rem;
     background: none;
     border: none;
-    color: white;
-    cursor: pointer;
+    color: $white;
+    cursor: $pointer;
   }
 
   a {
-    color: white;
+    color: $white;
   }
 }
 
@@ -45,7 +49,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5rem;
+  gap: 4rem;
   transform: translateX(-100%);
   transition: transform 0.5s ease-in-out;
   .bar-nav {
@@ -57,7 +61,7 @@ header {
     transition: 0.5s;
   }
   .bar-nav:hover {
-    box-shadow: 0px 0px 6px 2px rgba(34, 226, 82, 0.7);
+    box-shadow: $green-box-shadow;
   }
 }
 
@@ -73,4 +77,21 @@ header {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .burger-menu {
+    .bar-nav {
+      width: 70%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .burger-menu {
+    width: 50%;
+    .bar-nav {
+      width: 60%;
+    }
+  }
 }

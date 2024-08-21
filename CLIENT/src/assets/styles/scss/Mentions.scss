@@ -1,0 +1,21 @@
+#mentions {
+  p {
+    line-height: 2.5rem;
+  }
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      li {
+        list-style: none;
+      }
+    }
+  }
+  h3 {
+    margin-top: 2rem;
+  }
+}

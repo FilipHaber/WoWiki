@@ -25,8 +25,4 @@ app.use(express.static(path.join(dirname, "public")));
 
 app.use(router);
 
-app.listen(process.env.LOCAL_PORT, () => {
-  console.log(
-    "Server is running at http://localhost:" + process.env.LOCAL_PORT
-  );
-});
+app.listen(process.env.LOCAL_PORT);

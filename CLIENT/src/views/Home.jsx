@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
 import "../assets/styles/scss/Home.scss";
-import icondh from "../assets/images/v4.webp";
-import heal from "../assets/images/heal.webp";
+import classes from "../assets/images/classes.webp";
+import specialization from "../assets/images/specialization.webp";
 
 function Home() {
   return (
@@ -32,20 +32,28 @@ function Home() {
           </p>
         </section>
       </section>
-      <section className="section-class-spe">
+      <section className="section-class-spec">
         <h3>Classes et Spécialisations !</h3>
-        <article>
-          <h4>Classes</h4>
-          <NavLink to="classes">
-            <img src={icondh} alt="" />
-          </NavLink>
-        </article>
-        <article>
-          <h4>Spécialisations</h4>
-          <NavLink to="specialisations">
-            <img src={heal} alt="" />
-          </NavLink>
-        </article>
+        <div className="articles-container">
+          <article className="classes-article">
+            <h4>Classes</h4>
+            <NavLink to="classes">
+              <img
+                src={classes}
+                alt="Une main démoniaque voilette sur fond vert et noir"
+              />
+            </NavLink>
+          </article>
+          <article className="spec-article">
+            <h4>Spécialisations</h4>
+            <NavLink to="specialisations">
+              <img
+                src={specialization}
+                alt="Une croix jaune sur un fond vert et noir"
+              />
+            </NavLink>
+          </article>
+        </div>
       </section>
     </main>
   );

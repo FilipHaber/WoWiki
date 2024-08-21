@@ -23,7 +23,6 @@ function useFetchPersonById() {
         setPerson(data.response);
       } catch (error) {
         setError(error.message);
-        console.log("Error fetching person:", error.message);
       } finally {
         setIsLoading(false);
       }

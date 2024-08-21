@@ -43,8 +43,6 @@ const getPersonById = async (req, res) => {
     const { id } = req.params;
     const response = await Persons.getById(id);
 
-    console.log(response);
-
     if (!response.length) {
       return res.status(404).json({
         msg: "Le personnage demandé n'existe pas dans la bdd !",
@@ -81,7 +79,6 @@ const addPerson = async (req, res) => {
       response,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       msg: "Erreur de serveur",
       error,

@@ -4,9 +4,9 @@ import { NavLink } from "react-router-dom";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useUser } from "../../hooks/UseUser";
-import { useValidation } from "../../hooks/UseValidation";
-import "../../assets/styles/scss/Auth.scss";
+import { useUser } from "../hooks/UseUser";
+import { useValidation } from "../hooks/UseValidation";
+import "../assets/styles/scss/Auth.scss";
 
 const EMAIL_REGEX =
   /^(?=.{1,100}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;

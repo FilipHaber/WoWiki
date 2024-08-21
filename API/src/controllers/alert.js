@@ -42,7 +42,7 @@ const getAllNoTreatenAlerts = async (req, res) => {
 
 const addAlert = async (req, res) => {
   try {
-    const id = 2;
+    const { id } = req.params;
     const userId = req.session.user.id;
     const response = await Alert.add(id, userId);
 
@@ -70,9 +70,7 @@ const addAlert = async (req, res) => {
 const editAlert = async (req, res) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
-    console.log("data :", status, id);
-    const response = await Alert.edit(status, id);
+    const response = await Alert.edit(id);
 
     if (!response.affectedRows === 0) {
       res.status(404).json({

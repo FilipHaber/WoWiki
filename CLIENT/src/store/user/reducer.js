@@ -9,7 +9,6 @@ const initialState = {
 };
 
 function reducer(state, action) {
-  console.log("action received:", action);
   switch (action.type) {
     case "LOGIN":
       return {

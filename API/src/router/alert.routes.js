@@ -14,7 +14,7 @@ const router = Router();
 router.get("/", adminRequired, getAllNoTreatenAlerts);
 
 // Route to add a new alert, requires user authentication
-router.post("/", userRequired, addAlert);
+router.post("/:id", userRequired, addAlert);
 
 // Route to edit an alert by ID, requires admin privilege
 router.patch("/:id", adminRequired, editAlert);

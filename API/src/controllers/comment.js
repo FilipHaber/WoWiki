@@ -42,10 +42,7 @@ const getAllComments = async (req, res) => {
 const getCommentsByUserId = async (req, res) => {
   try {
     const id = req.session.user.id;
-    console.log("req session user id: ", req.session.user.id);
     const status = 0;
-    console.log(id);
-    console.log("status :", status);
     const response = await Comment.getByUserId(id, status);
 
     if (!response.length) {
@@ -109,9 +106,10 @@ const getCommentsByPersonId = async (req, res) => {
 const addComment = async (req, res) => {
   try {
     const userId = req.session.user.id;
-    const data = { ...req.body, userId };
-    const response = await Comment.add(data);
+    const { id } = req.params;
+    const data = { ...req.body, userId, id };
 
+    const response = await Comment.add(data);
     res.json({
       msg: "Votre commentaire à été ajouté avec succès !",
       response,

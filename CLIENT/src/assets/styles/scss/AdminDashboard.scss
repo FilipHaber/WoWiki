@@ -1,0 +1,141 @@
+@import "./Variables.scss";
+
+#dashboard-admin {
+  section {
+    display: flex;
+    flex-direction: column;
+  }
+  table {
+    width: 100%;
+  }
+  td {
+    padding: 0.5rem;
+    word-break: break-word;
+    width: 50%;
+  }
+  article {
+    button {
+      margin-top: 1rem;
+      width: 10rem;
+      height: 4rem;
+      align-self: center;
+      background-color: rgb(21, 136, 11);
+      color: $white;
+      border: none;
+      border-radius: 2rem;
+      cursor: pointer;
+    }
+  }
+  .alerts-section {
+    max-height: 100vh;
+    margin: 2rem 0 2rem 0;
+    padding: 0.5rem;
+    overflow-y: auto;
+  }
+  .alert-article {
+    background-color: rgb(102, 102, 102, 0.3);
+    border-radius: 2rem;
+    padding: 1rem;
+    margin: 1rem 0 1rem 0;
+  }
+  .comment {
+    word-break: break-all;
+  }
+  .no-comment {
+    margin: 2rem 0 2rem 0;
+  }
+  .user-article {
+    margin: 1rem 0 1rem 0;
+    padding: 1rem;
+    border-top: 1px solid $white;
+    word-break: break-all;
+  }
+  .margin-top-bot {
+    margin: 1rem 0 1rem 0;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  select {
+    width: 50%;
+    padding: 0.75rem;
+    margin: auto auto 2rem auto;
+    border-radius: 1rem;
+    cursor: pointer;
+    appearance: none;
+    option {
+      text-align: center;
+      font-size: 1.6rem;
+      background-color: rgb(187, 187, 187);
+    }
+  }
+  select:focus {
+    outline: none;
+  }
+  .users-section {
+    max-height: 100vh;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    overflow-y: auto;
+  }
+  .search-user {
+    width: 80%;
+    margin: 1rem auto 1rem auto;
+    text-align: center;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 2rem;
+    box-shadow: $green-box-shadow;
+    outline: none;
+  }
+  .alerts-section::-webkit-scrollbar,
+  .users-section::-webkit-scrollbar {
+    width: 1.5rem;
+  }
+  .alerts-section::-webkit-scrollbar-track,
+  .users-section::-webkit-scrollbar-track {
+    background: rgba(18, 155, 64, 0.1);
+    border-radius: 1rem;
+  }
+  .alerts-section::-webkit-scrollbar-thumb,
+  .users-section::-webkit-scrollbar-thumb {
+    background: #7e7272;
+    border-radius: 1rem;
+  }
+  .alerts-section::-webkit-scrollbar-thumb:hover,
+  .users-section::-webkit-scrollbar-thumb:hover {
+    background: #695555;
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+  #dashboard-admin {
+    select {
+      width: 30%;
+    }
+    .search-user {
+      width: 60%;
+      padding: 0.75rem;
+    }
+    .alert-article {
+      width: 90%;
+      margin: 1rem auto 1rem auto;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  #dashboard-admin {
+    select {
+      width: 20%;
+    }
+    .search-user {
+      width: 30%;
+    }
+    .alert-article {
+      width: 70%;
+      margin: 1rem auto 1rem auto;
+    }
+  }
+}
